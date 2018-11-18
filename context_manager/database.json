@@ -1,0 +1,22 @@
+[
+  {
+    "model": "Mercedes",
+    "hp": 273,
+    "price": 6595
+  },
+  {
+    "model": "BMW",
+    "hp": 333,
+    "price": 34489
+  },
+  {
+    "model": "Audi",
+    "hp": 249,
+    "price": 30988
+  },
+  {
+    "model": "Ford",
+    "hp": 150,
+    "price": 34349
+  }
+]
