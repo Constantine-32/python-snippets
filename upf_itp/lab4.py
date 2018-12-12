@@ -45,10 +45,6 @@ def get_input_matches_regex(msg, regex):
 def get_valid_letter():
   return get_input_matches_regex('letter', r'^[a-zA-Z]{1}$')
 
-# Return a alphanumerical string
-def get_valid_password():
-  return get_input_matches_regex('password', r'^[a-zA-Z0-9]+$')
-
 # Return a string that only contains characters a to z
 def get_valid_substring():
   return get_input_matches_regex('substring', r'^[a-zA-Z]+$')
@@ -93,14 +89,6 @@ def print_contact(name, info):
   print('Contact: {}\n  Phones: {}\n  Emails: {}\n  Address: {}\n'
     .format(name, phones, emails, address))
 
-# Ask the user for a password and compares it to the one given by parameter
-def check_password(password):
-  if get_valid_password() == password:
-    return True
-  else:
-    print('Incorrect password!')
-    return False
-
 # Returns a list of phone numbers
 def get_phone_list():
   number = get_option(0, 10, msg='How many phones will you enter?: ')
@@ -121,8 +109,7 @@ def get_valid_address():
   }
 
 # Creates a new contact from the user input and adds it to the agenda
-def new_contact(agenda, password):
-  if not check_password(password): return
+def new_contact(agenda):
   name = get_valid_name()
   if name in agenda:
     print('The contact {} already exists.'.format(name))
@@ -236,8 +223,7 @@ def modify_address(agenda, name):
   print('Exit modify address sub-menu')
 
 # Modifies the data of an existing contact
-def modify_contact(agenda, password):
-  if not check_password(password): return
+def modify_contact(agenda):
   name = get_valid_name()
   if not name in agenda:
     print('Contact {} doesn\'t exists'.format(name))
@@ -273,8 +259,7 @@ def modify_contact(agenda, password):
   print('Exit modify contact sub-menu')
 
 # Ask a contact name and deletes it form the agenda
-def delete_contact(agenda, password):
-  if not check_password(password): return
+def delete_contact(agenda):
   name = get_valid_name()
   try:
     del agenda[name]
@@ -283,8 +268,7 @@ def delete_contact(agenda, password):
     print('Contact {} doesn\'t exists'.format(name))
 
 # Ask a contact name and prints the information
-def view_contact(agenda, password):
-  if not check_password(password): return
+def view_contact(agenda):
   name = get_valid_name()
   try:
     print_contact(name, agenda[name])
@@ -396,7 +380,6 @@ def print_menu(menu_options):
 # The main function. It has the agenda dicctionaty with a few random generated
 # contacts, the menu options and the menu work flow.
 def main_menu():
-  password = 'lab4'
   # An agenda containing 11 random generated contacts
   agenda = {
     'Christian Callau':[
@@ -620,8 +603,7 @@ def main_menu():
   while True:
     option = get_option(1, total_options,
       'Select an option ({} for printing the menu): '.format(total_options-1))
-    if 1 <= option <= 4: menu_functions[option-1](agenda, password)
-    elif option == total_options-1: print_menu(menu_options)
+    if option == total_options-1: print_menu(menu_options)
     elif option == total_options: break
     else: menu_functions[option-1](agenda)
 
